@@ -1,0 +1,127 @@
+{
+  "kind": "build_request",
+  "title": "Romantic Valentine single-page with evasive 'No' button and 'Good choice' meme reveal",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a single-page interactive Valentine prompt that has only one purpose: asking the user to be the author’s Valentine, with two options presented as buttons: “Yes” and “No” (English text).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "The page should be simple, romantic-themed, and have only one purpose: to ask her to be my Valentine.\nThere should be two options: Yes or No."
+        ]
+      },
+      "acceptanceCriteria": [
+        "The page shows a clear Valentine question and exactly two primary options labeled “Yes” and “No”.",
+        "All user-facing text is in English.",
+        "No other flows/pages/features are introduced beyond this interaction."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement the “No” button evasive behavior so it moves away when the user tries to interact with it, preventing successful clicks/taps (support both mouse/trackpad and iPad touch).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "When she hovers her cursor over No, it should move away so she cannot click it, forcing her to click only on Yes."
+        ]
+      },
+      "acceptanceCriteria": [
+        "On desktop, when the pointer enters/approaches the “No” button area, the button relocates to a new position within the visible viewport/container.",
+        "On touch devices (e.g., iPad Chrome), attempting to tap the “No” button causes it to move away before activation.",
+        "The “No” button never triggers a “No” confirmation state (no modal/alert/route) and is effectively unclickable in normal interaction."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "When the user clicks “Yes”, replace or augment the UI to show a romantic confirmation view that displays a meme image and the text “Good choice”.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "When she clicks Yes, show her a meme image telling her \"Good choice"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking “Yes” reliably transitions to a success state without page reload.",
+        "The success state includes the exact visible phrase “Good choice” and displays the meme image.",
+        "The meme image loads from a static asset path (not fetched from the backend)."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Apply a romantic visual theme using a pink and white color scheme with consistent typography, spacing, and UI styling across the page.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "The page should be themed\nromantically with a pink and white color scheme"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The primary background/surfaces and controls use a cohesive pink/white palette.",
+        "The design looks intentionally romantic (e.g., soft gradients, heart motifs, gentle shadows) while remaining simple and uncluttered.",
+        "Buttons and text have sufficient contrast and remain legible on iPad-sized screens."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Ensure the page is fully interactive and works smoothly in iPad Chrome (responsive layout, touch-friendly hit targets, and no reliance on hover-only interactions).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "be fully interactive using\nHTML, CSS, and JavaScript so that I can easily run it on my iPad using Chrome."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Layout is responsive and fits common iPad viewport sizes in portrait and landscape without overflowing.",
+        "All primary interactions work via touch (Yes action, No evasion).",
+        "No horizontal scrolling is introduced by the moving “No” button (it stays within a bounded container/viewport)."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Add the generated meme image as a static asset under frontend/public/assets/generated and render it in the “Yes” success state.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The image file exists at frontend/public/assets/generated/<filename> and is referenced directly by the frontend.",
+        "No backend endpoints are used to serve or transform the image at runtime."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend must be implemented with the existing React + TypeScript + Tailwind stack (no standalone HTML file delivery).",
+    "Do not edit files under frontend/src/components/ui or any other immutable paths defined by the system.",
+    "Backend is not required for this feature; do not introduce unnecessary backend state or APIs."
+  ],
+  "nonGoals": [
+    "Adding authentication (Internet Identity) or user accounts.",
+    "Storing analytics, tracking, or persistence of responses.",
+    "Supporting real-time features, messaging, emails, or external API integrations."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Meme-style image with a cute romantic aesthetic, bold readable caption text “GOOD CHOICE”, and heart/pink accents (good-choice-meme.dim_900x600.png)"
+    ],
+    "edits": []
+  }
+}

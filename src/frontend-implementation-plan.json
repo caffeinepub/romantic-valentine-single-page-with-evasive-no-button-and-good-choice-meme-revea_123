@@ -1,0 +1,117 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Valentine single-page prompt with evasive No button and Good choice meme reveal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Implement a single-purpose Valentine prompt view with exactly two buttons: “Yes” and “No” (English).",
+      "acceptanceCriteria": [
+        "The page shows a clear Valentine question and exactly two primary options labeled “Yes” and “No”.",
+        "All user-facing text is in English.",
+        "No other flows/pages/features are introduced beyond this interaction."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the single-page Valentine UI in React + TypeScript: a centered romantic prompt with exactly two primary buttons labeled “Yes” and “No”, and local UI state to manage the interaction (no extra pages/routes)."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create the Tailwind CSS entry (including Tailwind directives) and base typography/layout defaults used by the Valentine page to keep styling consistent and uncluttered."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Make the “No” button evade pointer and touch interactions so it cannot be successfully clicked/tapped.",
+      "acceptanceCriteria": [
+        "On desktop, when the pointer enters/approaches the “No” button area, the button relocates to a new position within the visible viewport/container.",
+        "On touch devices (e.g., iPad Chrome), attempting to tap the “No” button causes it to move away before activation.",
+        "The “No” button never triggers a “No” confirmation state (no modal/alert/route) and is effectively unclickable in normal interaction."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add evasive behavior for the “No” button: position it within a bounded container and on pointer enter/move and touch start/move, compute a new safe position within the visible container (accounting for button size and padding) and move it before activation; ensure it cannot trigger a “No” state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "On “Yes”, transition to a success view showing the meme image and the exact text “Good choice”.",
+      "acceptanceCriteria": [
+        "Clicking “Yes” reliably transitions to a success state without page reload.",
+        "The success state includes the exact visible phrase “Good choice” and displays the meme image.",
+        "The meme image loads from a static asset path (not fetched from the backend)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Implement the “Yes” click success state (no reload): replace/augment the prompt UI with a romantic confirmation view that renders the exact phrase “Good choice” and displays the static meme image from frontend/public/assets/generated/good-choice-meme.dim_900x600.png."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Apply a cohesive romantic pink/white theme with consistent typography, spacing, and styling.",
+      "acceptanceCriteria": [
+        "The primary background/surfaces and controls use a cohesive pink/white palette.",
+        "The design looks intentionally romantic (e.g., soft gradients, heart motifs, gentle shadows) while remaining simple and uncluttered.",
+        "Buttons and text have sufficient contrast and remain legible on iPad-sized screens."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Define romantic theme styling using Tailwind base layers and CSS variables (pink/white palette, soft background gradient, readable default typography, gentle shadows) to ensure consistent styling across the single page and legible contrast on iPad-sized screens."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Apply Tailwind utility classes for the romantic layout and controls (pink/white surfaces, soft shadows, spacing, consistent typography) and keep the UI intentionally simple and single-purpose."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Ensure smooth iPad Chrome interaction: responsive layout, touch-friendly targets, and no hover-only reliance.",
+      "acceptanceCriteria": [
+        "Layout is responsive and fits common iPad viewport sizes in portrait and landscape without overflowing.",
+        "All primary interactions work via touch (Yes action, No evasion).",
+        "No horizontal scrolling is introduced by the moving “No” button (it stays within a bounded container/viewport)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Make the layout responsive (centered container with max width, adaptive spacing) and touch-friendly (adequate button sizes). Ensure the “No” button moves within an overflow-hidden bounded container so it cannot cause horizontal scrolling; include touch handlers so evasion works without hover."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add the generated meme image under frontend/public/assets/generated and render it in the success state.",
+      "acceptanceCriteria": [
+        "The image file exists at frontend/public/assets/generated/<filename> and is referenced directly by the frontend.",
+        "No backend endpoints are used to serve or transform the image at runtime."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/good-choice-meme.dim_900x600.png",
+          "operation": "create",
+          "description": "Add the generated static meme image asset at the exact path frontend/public/assets/generated/good-choice-meme.dim_900x600.png for direct use by the frontend (no backend involvement)."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Reference and render the static image from frontend/public/assets/generated/good-choice-meme.dim_900x600.png in the “Yes” success state, ensuring it is loaded as a static asset (not via backend)."
+        }
+      ]
+    }
+  ]
+}
